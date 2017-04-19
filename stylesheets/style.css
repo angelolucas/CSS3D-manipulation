@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(#2874cb, #9adbfe);
+  cursor: -webkit-grab;
+}
+
+body:active {
+  cursor: -webkit-grabbing;
+}
+
+.platform-3d {
+  position: relative;
+  -moz-perspective: 800px;
+  -webkit-perspective: 800px;
+  perspective: 800px;
+  width: 100vw;
+  height: 100vh;
+  min-width: 300px;
+  min-height: 300px;
+  display: flex;
+  overflow: hidden;
+}
+.platform-3d * {
+  transform-style: preserve-3d;
+}
+
+.platform-3d__rotate {
+  will-change: transform;
+  transform: rotateX(45deg) rotateZ(45deg) translateZ(0);
+  width: 0;
+  height: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.platform-3d__axis {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 200vw;
+  border-left-width: 1px;
+  border-left-style: solid;
+  pointer-events: none;
+  transform-origin: top;
+}
+
+.platform-3d__axis:after {
+  content: "";
+  position: absolute;
+  border-left-width: 1px;
+  border-left-style: solid;
+  opacity: 0.15;
+  height: 100%;
+  width: 0;
+  bottom: 100%;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.platform-3d__axis--perpendicular {
+  transform: translateX(-100%) rotateY(90deg);
+}
+
+.platform-3d__axis--x {
+  transform: rotateZ(-90deg);
+  border-color: red;
+}
+
+.platform-3d__axis--x,
+.platform-3d__axis--x:after,
+.platform-3d__axis--x .platform-3d__axis--perpendicular,
+.platform-3d__axis--x .platform-3d__axis--perpendicular:after {
+  border-color: red;
+}
+
+.platform-3d__axis--y,
+.platform-3d__axis--y:after,
+.platform-3d__axis--y .platform-3d__axis--perpendicular,
+.platform-3d__axis--y .platform-3d__axis--perpendicular:after {
+  border-color: green;
+}
+
+.platform-3d__axis--z {
+  transform: rotateX(90deg);
+}
+
+.platform-3d__axis--z,
+.platform-3d__axis--z:after,
+.platform-3d__axis--z .platform-3d__axis--perpendicular,
+.platform-3d__axis--z .platform-3d__axis--perpendicular:after {
+  border-color: blue;
+}
