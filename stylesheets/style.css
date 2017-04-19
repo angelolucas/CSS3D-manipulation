@@ -161,3 +161,16 @@ body:active {
 .tin--11 {
   background-position: 100% top;
 }
+
+.top {
+  background-image: url(../images/top-tin.png);
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 106px;
+  height: 106px;
+  position: absolute;
+  transform: rotateX(-90deg) translateX(-50%) translateY(-2%);
+  transform-origin: top;
+  left: 50%;
+  border-radius: 50%;
+}
