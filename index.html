@@ -3,37 +3,25 @@
 <head>
  <title>3D Platform</title>
  <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
- <script src="javascript/jquery-3.2.1.min.js"></script>
- <script src="javascript/rotate-3d.js"></script>
 </head>
 <body>
-  <div class="platform-3d">
-    <div class="platform-3d__rotate">
-      <div class="platform-3d__axis platform-3d__axis--x">
-        <div class="platform-3d__axis platform-3d__axis--perpendicular"></div>
-      </div>
-      <div class="platform-3d__axis platform-3d__axis--y">
-        <div class="platform-3d__axis platform-3d__axis--perpendicular"></div>
-      </div>
-      <div class="platform-3d__axis platform-3d__axis--z">
-        <div class="platform-3d__axis platform-3d__axis--perpendicular"></div>
-      </div>
-
-      <div class="coca-cola">
-        <div class="tin tin--1">
-          <div class="top"></div>
-          <div class="tin tin--2">
-            <div class="tin tin--3">
-              <div class="tin tin--4">
-                <div class="tin tin--5">
-                  <div class="tin tin--6">
-                    <div class="tin tin--7">
-                      <div class="tin tin--8">
-                        <div class="tin tin--9">
-                          <div class="tin tin--10">
-                            <div class="tin tin--11">
-                            </div>
-                          </div>
+<p class="print-result">transform: <span class="value"></span> ;</p>
+<div class="coca-cola-container">
+  <div class="coca-cola">
+    <div class="origin"></div>
+    <div class="tin tin--01">
+      <div class="top"></div>
+      <div class="bottom"></div>
+      <div class="tin tin--02">
+        <div class="tin tin--03">
+          <div class="tin tin--04">
+            <div class="tin tin--05">
+              <div class="tin tin--06">
+                <div class="tin tin--07">
+                  <div class="tin tin--08">
+                    <div class="tin tin--09">
+                      <div class="tin tin--10">
+                        <div class="tin tin--11">
                         </div>
                       </div>
                     </div>
@@ -46,5 +34,8 @@
       </div>
     </div>
   </div>
+</div>
+<script src="javascript/dat.gui.min.js"></script>
+<script src="javascript/main.js"></script>
 </body>
 </html>

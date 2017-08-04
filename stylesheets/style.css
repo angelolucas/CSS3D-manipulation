@@ -1,169 +1,74 @@
 * {
   margin: 0;
   padding: 0;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 body {
-  background: linear-gradient(#2874cb, #9adbfe);
-  cursor: -webkit-grab;
+  background: #EB191E;
+  box-shadow: inset 0 0 1000px 0px #960612;
 }
-
-body:active {
-  cursor: -webkit-grabbing;
+.print-result {
+  position: absolute;
+  width: 10px;
+  left: 10px;
+  top: 10px;
+  color: white;
+  font: 12px arial;
+  letter-spacing: 0.9px;
+  line-height: 1.5;
+  z-index: 1;
 }
-
-.platform-3d {
-  position: relative;
-  -moz-perspective: 800px;
-  -webkit-perspective: 800px;
-  perspective: 800px;
+.print-result .value {
+  margin-left: 10px;
+  display: block;
+}
+.coca-cola-container {
+  perspective: 400px;
   width: 100vw;
   height: 100vh;
-  min-width: 300px;
-  min-height: 300px;
   display: flex;
-  overflow: hidden;
 }
-.platform-3d * {
+
+.coca-cola-container * {
   transform-style: preserve-3d;
 }
 
-.platform-3d__rotate {
-  will-change: transform;
-  transform: rotateX(45deg) rotateZ(45deg) translateZ(0);
-  width: 0;
-  height: 0;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.platform-3d__axis {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 200vw;
-  border-left-width: 1px;
-  border-left-style: solid;
-  pointer-events: none;
-  transform-origin: top;
-}
-
-.platform-3d__axis:after {
-  content: "";
-  position: absolute;
-  border-left-width: 1px;
-  border-left-style: solid;
-  opacity: 0.15;
-  height: 100%;
-  width: 0;
-  bottom: 100%;
-  left: 0;
-  transform: translateX(-100%);
-}
-
-.platform-3d__axis--perpendicular {
-  transform: translateX(-100%) rotateY(90deg);
-}
-
-.platform-3d__axis--x {
-  transform: rotateZ(-90deg);
-  border-color: red;
-}
-
-.platform-3d__axis--x,
-.platform-3d__axis--x:after,
-.platform-3d__axis--x .platform-3d__axis--perpendicular,
-.platform-3d__axis--x .platform-3d__axis--perpendicular:after {
-  border-color: red;
-}
-
-.platform-3d__axis--y,
-.platform-3d__axis--y:after,
-.platform-3d__axis--y .platform-3d__axis--perpendicular,
-.platform-3d__axis--y .platform-3d__axis--perpendicular:after {
-  border-color: green;
-}
-
-.platform-3d__axis--z {
-  transform: rotateX(90deg);
-}
-
-.platform-3d__axis--z,
-.platform-3d__axis--z:after,
-.platform-3d__axis--z .platform-3d__axis--perpendicular,
-.platform-3d__axis--z .platform-3d__axis--perpendicular:after {
-  border-color: blue;
-}
-
 .coca-cola {
-  transform: rotateX(-90deg);
+  transform-origin: center center -51px;
+  width: 30px;
+  height: 210px;
+  margin: auto;
 }
 
 .tin {
-  width: 30px;
-  height: 210px;
+  width: 100%;
+  height: 100%;
   transform: translateX(99.5%) rotateY(33deg);
   transform-origin: left;
   position: relative;
   left: 0;
   top: 0;
-  background-image: url(../images/coca-cola-label.jpg);
+  background-color: #be0709;
+  background-image: url(http://i.imgur.com/OKuKdpj.jpg);
   background-repeat: no-repeat;
   background-size: auto 100%;
 }
 
-.tin--1 {
-  background-position: left top;
-}
-
-.tin--2 {
-  background-position: 10% top;
-}
-
-.tin--3 {
-  background-position: 20% top;
-}
-
-.tin--4 {
-  background-position: 30% top;
-}
-
-.tin--5 {
-  background-position: 40% top;
-}
-
-.tin--6 {
-  background-position: 50% top;
-}
-
-.tin--7 {
-  background-position: 60% top;
-}
-
-.tin--8 {
-  background-position: 70% top;
-}
-
-.tin--9 {
-  background-position: 80% top;
-}
-
-.tin--10 {
-  background-position: 90% top;
-}
-
-.tin--11 {
-  background-position: 100% top;
-}
+.tin--01 { background-position: 0% top; }
+.tin--02 { background-position: 10% top; }
+.tin--03 { background-position: 20% top; }
+.tin--04 { background-position: 30% top; }
+.tin--05 { background-position: 40% top; }
+.tin--06 { background-position: 50% top; }
+.tin--07 { background-position: 60% top; }
+.tin--08 { background-position: 70% top; }
+.tin--09 { background-position: 80% top; }
+.tin--10 { background-position: 90% top; }
+.tin--11 { background-position: 100% top; }
 
 .top {
-  background-image: url(../images/top-tin.png);
+  background-color: #86919a;
+  background-image: url(http://i.imgur.com/EmPIo5C.png);
   background-repeat: no-repeat;
   background-size: auto 100%;
   width: 106px;
@@ -173,4 +78,23 @@ body:active {
   transform-origin: top;
   left: 50%;
   border-radius: 50%;
+  top: 0;
+}
+.bottom {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  transform: rotateX(90deg) translateX(-50%) translateY(0%);
+  transform-origin: bottom;
+  bottom: 0;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.6);
+}
+
+.origin {
+  width: 10px;
+  height: 10px;
+  background: black;
+  transform: translate3d(50%, 50%, -51px);
 }
