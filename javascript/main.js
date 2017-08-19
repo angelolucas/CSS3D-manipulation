@@ -88,7 +88,7 @@ var printValues = function() {
 }
 
 // Init GUI
-var GUI = new dat.GUI({width: 400});
+var GUI = new dat.GUI({width: 300});
 
 // GUI Transform Origin
 var GUITransformOrigin = GUI.addFolder('transform-origin');
