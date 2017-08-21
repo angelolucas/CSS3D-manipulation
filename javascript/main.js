@@ -82,8 +82,8 @@ var perspective = function() {
 
 var printValues = function() {
   selector.printResult.innerHTML =
-    '<span>' + property.transform + '</span>' +
     '<span>' + property.transformOrigin + '</span>' +
+    '<span>' + property.transform + '</span>' +
     '<span>' + property.perspective + '</span>';
 }
 
