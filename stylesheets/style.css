@@ -84,23 +84,6 @@ body {
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.6);
 }
 
-/* Print result */
-.print-result {
-  position: absolute;
-  width: 120px;
-  left: 10px;
-  top: 10px;
-  color: white;
-  font: 12px arial;
-  letter-spacing: 0.9px;
-  line-height: 1.5;
-}
-.print-result span {
-  margin-left: 10px;
-  display: block;
-  margin-bottom: 20px;
-}
-
 /* Axes
 * Represents transform-origin
 */
@@ -174,4 +157,21 @@ body {
 .axis--z .axis--perpendicular,
 .axis--z .axis--perpendicular:after {
   border-color: blue;
+}
+
+/* Print result */
+.print-result {
+  position: absolute;
+  width: 130px;
+  left: 10px;
+  top: 10px;
+  color: white;
+  font: 12px arial;
+  letter-spacing: 0.9px;
+  line-height: 1.5;
+}
+.print-result span {
+  margin-left: 10px;
+  display: block;
+  margin-bottom: 20px;
 }

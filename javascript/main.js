@@ -29,13 +29,18 @@ var value = {
     y: 50,
     z: -50
   },
-  perspective: 400
+  perspective: {
+    perspective: 400,
+    x: 50,
+    y: 50
+  }
 };
 
 var property = {
   transform: '',
   transformOrigin: '',
-  perspective: ''
+  perspective: '',
+  perspectiveOrigin: ''
 };
 
 var transform = function() {
@@ -54,7 +59,7 @@ var transform = function() {
         value.transform.scale.xyz.toFixed(3) + ', ' +
         value.transform.scale.xyz.toFixed(3) + ', ' +
         value.transform.scale.xyz.toFixed(3) +
-      ');';
+      '); ';
 
   applyTransform();
 };
@@ -62,12 +67,13 @@ var transform = function() {
 var transformOrigin = function() {
   property.transformOrigin =
     'transform-origin: ' +
-      value.transformOrigin.x + '% ' + value.transformOrigin.y + '% ' + value.transformOrigin.z + 'px;';
+      value.transformOrigin.x + '% ' + value.transformOrigin.y + '% ' + value.transformOrigin.z + 'px; ';
 
+  // Move the axes to show the transform-origin location
   selector.axes.setAttribute('style',
     'top: ' + value.transformOrigin.y + '%;' +
     'left: ' + value.transformOrigin.x + '%;' +
-    'transform: translate3d(50%, 50%, ' + value.transformOrigin.z + 'px);'
+    'transform: translate3d(50%, 50%, ' + value.transformOrigin.z + 'px); '
   );
 
   applyTransform();
@@ -83,9 +89,23 @@ var applyTransform = function() {
 };
 
 var perspective = function() {
-  property.perspective = 'perspective: ' + value.perspective + 'px;';
+  property.perspective = 'perspective: ' + value.perspective.perspective + 'px; ';
 
-  selector.objectContainer.setAttribute('style', property.perspective);
+  applyPerspective();
+};
+
+var perspectiveOrigin = function() {
+  property.perspectiveOrigin =
+    'perspective-origin: ' +
+      value.perspective.x + '% ' +
+      value.perspective.y + '%; ';
+
+  applyPerspective();
+}
+
+var applyPerspective = function() {
+
+  selector.objectContainer.setAttribute('style', property.perspective + property.perspectiveOrigin);
 
   printValues();
 };
@@ -94,7 +114,8 @@ var printValues = function() {
   selector.printResult.innerHTML =
     '<span>' + property.transformOrigin + '</span>' +
     '<span>' + property.transform + '</span>' +
-    '<span>' + property.perspective + '</span>';
+    '<span>' + property.perspective + '</span>' +
+    '<span>' + property.perspectiveOrigin + '</span>';
 }
 
 // Init GUI
@@ -102,7 +123,7 @@ var GUI = new dat.GUI({width: 300});
 
 // GUI Transform Origin
 var GUITransformOrigin = GUI.addFolder('transform-origin');
-GUITransformOrigin.open();
+//GUITransformOrigin.open();
 
 GUITransformOrigin.add(value.transformOrigin, 'x', -600, 600).step(1).onChange(function(){
   transformOrigin();
@@ -119,7 +140,7 @@ GUITransform.open();
 
 // GUI Rotate
 var GUIRotate = GUITransform.addFolder('rotate');
-GUIRotate.open();
+//GUIRotate.open();
 
 GUIRotate.add(value.transform.rotate, 'x', -180, 180).step(1).onChange(function(){
   transform();
@@ -133,7 +154,7 @@ GUIRotate.add(value.transform.rotate, 'z', -180, 180).step(1).onChange(function(
 
 // GUI Translate
 var GUITranslate = GUITransform.addFolder('translate');
-GUITranslate.open();
+//GUITranslate.open();
 
 GUITranslate.add(value.transform.translate, 'x', -100, 100).step(1).onChange(function(){
   transform();
@@ -147,7 +168,7 @@ GUITranslate.add(value.transform.translate, 'z', -100, 100).step(1).onChange(fun
 
 // GUI Scale
 var GUIScale = GUITransform.addFolder('scale');
-GUIScale.open();
+//GUIScale.open();
 
 GUIScale.add(value.transform.scale, 'xyz', -1, 2).onChange(function(){
   transform();
@@ -164,14 +185,25 @@ GUIScale.add(value.transform.scale, 'z', -1, 2).onChange(function(){
 
 // GUI Perspective
 var GUIPerspective = GUI.addFolder('perspective');
-GUIPerspective.open();
+//GUIPerspective.open();
 
-GUIPerspective.add(value, 'perspective', 100, 1000).step(1).onChange(function(){
+GUIPerspective.add(value.perspective, 'perspective', 100, 1000).step(1).onChange(function(){
   perspective();
+});
+
+// GUI Perspective Origin
+var GUIPerspectiveOrigin = GUI.addFolder('perspective-origin');
+
+GUIPerspectiveOrigin.add(value.perspective, 'x', 0, 100).step(1).onChange(function(){
+  perspectiveOrigin();
+});
+GUIPerspectiveOrigin.add(value.perspective, 'y', 0, 100).step(1).onChange(function(){
+  perspectiveOrigin();
 });
 
 window.onload = function() {
   transform();
   transformOrigin();
   perspective();
+  perspectiveOrigin();
 }
