@@ -1,5 +1,5 @@
 var selector = {
-  objectContainer: document.querySelector('.coca-cola-container'),
+  objectContainer: document.querySelector('.object-container'),
   object: document.querySelector('.coca-cola'),
   axes: document.querySelector('.axes'),
   printResult: document.querySelector('.print-result')
@@ -33,14 +33,16 @@ var value = {
     perspective: 400,
     x: 50,
     y: 50
-  }
+  },
+  preserve3d: true
 };
 
 var property = {
   transform: '',
   transformOrigin: '',
   perspective: '',
-  perspectiveOrigin: ''
+  perspectiveOrigin: '',
+  preserve3d: ''
 };
 
 var transform = function() {
@@ -110,12 +112,33 @@ var applyPerspective = function() {
   printValues();
 };
 
+var preserve3d = function() {
+  if (value.preserve3d === true) {
+    selector.objectContainer.classList.add('preserve-3d');
+    property.preserve3d = 'transform-style: preserve-3d';
+
+  } else {
+    selector.objectContainer.classList.remove('preserve-3d');
+    property.preserve3d = 'transform-style: initial';
+  }
+
+  printValues();
+}
+
 var printValues = function() {
+  console.log(property.preserve3d);
   selector.printResult.innerHTML =
-    '<span>' + property.transformOrigin + '</span>' +
-    '<span>' + property.transform + '</span>' +
-    '<span>' + property.perspective + '</span>' +
-    '<span>' + property.perspectiveOrigin + '</span>';
+    '<span class="print-result__selector">.object-container</span> { ' +
+      '<span class="print-result__value">' + property.perspective + '</span>' +
+      '<span class="print-result__value">' + property.perspectiveOrigin + '</span>'
+    +'}<br><br>'+
+    '<span class="print-result__selector">.object-container *</span> { ' +
+      '<span class="print-result__value">' + property.preserve3d + '</span>' +
+    '} <br><br>' +
+    '<span class="print-result__selector">.object</span> {' +
+      '<span class="print-result__value">' + property.transformOrigin + '</span>' +
+      '<span class="print-result__value">' + property.transform + '</span>'
+    + '}' ;
 }
 
 // Init GUI
@@ -201,9 +224,16 @@ GUIPerspectiveOrigin.add(value.perspective, 'y', 0, 100).step(1).onChange(functi
   perspectiveOrigin();
 });
 
+var GUITransformStyle = GUI.addFolder('transform-style');
+
+GUITransformStyle.add(value, 'preserve3d').onChange(function(){
+  preserve3d();
+});
+
 window.onload = function() {
   transform();
   transformOrigin();
   perspective();
   perspectiveOrigin();
+  preserve3d();
 }
