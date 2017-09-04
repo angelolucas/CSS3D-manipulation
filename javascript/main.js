@@ -1,11 +1,11 @@
 var selector = {
   objectContainer: document.querySelector('.object-container'),
-  object: document.querySelector('.coca-cola'),
+  object: document.querySelector('.object'),
   axes: document.querySelector('.axes'),
   printResult: document.querySelector('.print-result')
 };
 
-var value = {
+var control = {
   transform: {
     rotate: {
       x: 0,
@@ -22,6 +22,10 @@ var value = {
       x: 1,
       y: 1,
       z: 1,
+    },
+    perspective: {
+      apply: false,
+      value: 1000
     }
   },
   transformOrigin: {
@@ -30,7 +34,7 @@ var value = {
     z: -50
   },
   perspective: {
-    perspective: 400,
+    value: 400,
     x: 50,
     y: 50
   },
@@ -48,72 +52,60 @@ var property = {
 var transform = function() {
   property.transform =
     'transform: ' +
-      'rotateX(' + value.transform.rotate.x + 'deg) ' +
-      'rotateY(' + value.transform.rotate.y + 'deg) ' +
-      'rotateZ(' + value.transform.rotate.z + 'deg) ' +
-      'translateX(' + value.transform.translate.x + 'px) ' +
-      'translateY(' + value.transform.translate.y + 'px) ' +
-      'translateZ(' + value.transform.translate.z + 'px) ' +
-      'scaleX(' + value.transform.scale.x.toFixed(3) + ') ' +
-      'scaleY(' + value.transform.scale.y.toFixed(3) + ') ' +
-      'scaleZ(' + value.transform.scale.z.toFixed(3) + ') ' +
+      'rotateX(' + control.transform.rotate.x + 'deg) ' +
+      'rotateY(' + control.transform.rotate.y + 'deg) ' +
+      'rotateZ(' + control.transform.rotate.z + 'deg) ' +
+      'translateX(' + control.transform.translate.x + 'px) ' +
+      'translateY(' + control.transform.translate.y + 'px) ' +
+      'translateZ(' + control.transform.translate.z + 'px) ' +
+      'scaleX(' + control.transform.scale.x.toFixed(3) + ') ' +
+      'scaleY(' + control.transform.scale.y.toFixed(3) + ') ' +
+      'scaleZ(' + control.transform.scale.z.toFixed(3) + ') ' +
       'scale3d(' +
-        value.transform.scale.xyz.toFixed(3) + ', ' +
-        value.transform.scale.xyz.toFixed(3) + ', ' +
-        value.transform.scale.xyz.toFixed(3) +
+        control.transform.scale.xyz.toFixed(3) + ', ' +
+        control.transform.scale.xyz.toFixed(3) + ', ' +
+        control.transform.scale.xyz.toFixed(3) +
       '); ';
 
-  applyTransform();
+  applyObjectStyle();
 };
 
+// Transform origin
 var transformOrigin = function() {
   property.transformOrigin =
     'transform-origin: ' +
-      value.transformOrigin.x + '% ' + value.transformOrigin.y + '% ' + value.transformOrigin.z + 'px; ';
+      control.transformOrigin.x + '% ' + control.transformOrigin.y + '% ' + control.transformOrigin.z + 'px; ';
 
   // Move the axes to show the transform-origin location
   selector.axes.setAttribute('style',
-    'top: ' + value.transformOrigin.y + '%;' +
-    'left: ' + value.transformOrigin.x + '%;' +
-    'transform: translate3d(50%, 50%, ' + value.transformOrigin.z + 'px); '
+    'top: ' + control.transformOrigin.y + '%;' +
+    'left: ' + control.transformOrigin.x + '%;' +
+    'transform: translate3d(50%, 50%, ' + control.transformOrigin.z + 'px); '
   );
 
-  applyTransform();
+  applyObjectStyle();
 };
 
-var applyTransform = function() {
-  selector.object.setAttribute('style',
-    property.transform +
-    property.transformOrigin
-  );
-
-  printValues();
-};
-
+// Perspective
 var perspective = function() {
-  property.perspective = 'perspective: ' + value.perspective.perspective + 'px; ';
+  property.perspective = 'perspective: ' + control.perspective.value + 'px; ';
 
-  applyPerspective();
+  applyObjectContainerStyle();
 };
 
+// Perspective origin
 var perspectiveOrigin = function() {
   property.perspectiveOrigin =
     'perspective-origin: ' +
-      value.perspective.x + '% ' +
-      value.perspective.y + '%; ';
+      control.perspective.x + '% ' +
+      control.perspective.y + '%; ';
 
-  applyPerspective();
+  applyObjectContainerStyle();
 }
 
-var applyPerspective = function() {
-
-  selector.objectContainer.setAttribute('style', property.perspective + property.perspectiveOrigin);
-
-  printValues();
-};
-
+// Transform-style preserve-3d
 var preserve3d = function() {
-  if (value.preserve3d === true) {
+  if (control.preserve3d === true) {
     selector.objectContainer.classList.add('preserve-3d');
     property.preserve3d = 'transform-style: preserve-3d';
 
@@ -125,8 +117,26 @@ var preserve3d = function() {
   printValues();
 }
 
+// Applies the values in the object container
+var applyObjectContainerStyle = function() {
+
+  selector.objectContainer.setAttribute('style', property.perspective + property.perspectiveOrigin);
+
+  printValues();
+};
+
+// Applies the values in the object
+var applyObjectStyle = function() {
+  selector.object.setAttribute('style',
+    property.transform +
+    property.transformOrigin
+  );
+
+  printValues();
+};
+
+// Print values
 var printValues = function() {
-  console.log(property.preserve3d);
   selector.printResult.innerHTML =
     '<span class="print-result__selector">.object-container</span> { ' +
       '<span class="print-result__value">' + property.perspective + '</span>' +
@@ -144,89 +154,99 @@ var printValues = function() {
 // Init GUI
 var GUI = new dat.GUI({width: 300});
 
-// GUI Transform Origin
+// GUI Transform origin
 var GUITransformOrigin = GUI.addFolder('transform-origin');
 //GUITransformOrigin.open();
 
-GUITransformOrigin.add(value.transformOrigin, 'x', -600, 600).step(1).onChange(function(){
+GUITransformOrigin.add(control.transformOrigin, 'x', -600, 600).step(1).onChange(function(){
   transformOrigin();
 });
-GUITransformOrigin.add(value.transformOrigin, 'y', -100, 200).step(1).onChange(function(){
+GUITransformOrigin.add(control.transformOrigin, 'y', -100, 200).step(1).onChange(function(){
   transformOrigin();
 });
-GUITransformOrigin.add(value.transformOrigin, 'z', -100, 100).step(1).onChange(function(){
+GUITransformOrigin.add(control.transformOrigin, 'z', -100, 100).step(1).onChange(function(){
   transformOrigin();
 });
 
 var GUITransform = GUI.addFolder('transform');
 GUITransform.open();
 
-// GUI Rotate
-var GUIRotate = GUITransform.addFolder('rotate');
-//GUIRotate.open();
+// GUI Transform rotate
+var GUITransformRotate = GUITransform.addFolder('rotate');
 
-GUIRotate.add(value.transform.rotate, 'x', -180, 180).step(1).onChange(function(){
+GUITransformRotate.add(control.transform.rotate, 'x', -180, 180).step(1).onChange(function(){
   transform();
 });
-GUIRotate.add(value.transform.rotate, 'y', -180, 180).step(1).onChange(function(){
+GUITransformRotate.add(control.transform.rotate, 'y', -180, 180).step(1).onChange(function(){
   transform();
 });
-GUIRotate.add(value.transform.rotate, 'z', -180, 180).step(1).onChange(function(){
-  transform();
-});
-
-// GUI Translate
-var GUITranslate = GUITransform.addFolder('translate');
-//GUITranslate.open();
-
-GUITranslate.add(value.transform.translate, 'x', -100, 100).step(1).onChange(function(){
-  transform();
-});
-GUITranslate.add(value.transform.translate, 'y', -100, 100).step(1).onChange(function(){
-  transform();
-});
-GUITranslate.add(value.transform.translate, 'z', -100, 100).step(1).onChange(function(){
+GUITransformRotate.add(control.transform.rotate, 'z', -180, 180).step(1).onChange(function(){
   transform();
 });
 
-// GUI Scale
-var GUIScale = GUITransform.addFolder('scale');
-//GUIScale.open();
+// GUI Transform translate
+var GUITransformTranslate = GUITransform.addFolder('translate');
 
-GUIScale.add(value.transform.scale, 'xyz', -1, 2).onChange(function(){
+GUITransformTranslate.add(control.transform.translate, 'x', -100, 100).step(1).onChange(function(){
   transform();
 });
-GUIScale.add(value.transform.scale, 'x', -1, 2).onChange(function(){
+GUITransformTranslate.add(control.transform.translate, 'y', -100, 100).step(1).onChange(function(){
   transform();
 });
-GUIScale.add(value.transform.scale, 'y', -1, 2).onChange(function(){
+GUITransformTranslate.add(control.transform.translate, 'z', -100, 100).step(1).onChange(function(){
   transform();
 });
-GUIScale.add(value.transform.scale, 'z', -1, 2).onChange(function(){
+
+// GUI Transform scale
+var GUITransformScale = GUITransform.addFolder('scale');
+
+GUITransformScale.add(control.transform.scale, 'xyz', -1, 2).onChange(function(){
   transform();
+});
+GUITransformScale.add(control.transform.scale, 'x', -1, 2).onChange(function(){
+  transform();
+});
+GUITransformScale.add(control.transform.scale, 'y', -1, 2).onChange(function(){
+  transform();
+});
+GUITransformScale.add(control.transform.scale, 'z', -1, 2).onChange(function(){
+  transform();
+});
+
+var GUITransformPerspective = GUITransform.addFolder('perspective');
+GUITransformPerspective.open();
+
+var applyTransformPerspective;
+GUITransformPerspective.add(control.transform.perspective, 'apply').onChange(function() {
+  if (control.transform.perspective.apply === true) {
+    applyTransformPerspective = GUITransformPerspective.add(control.transform.perspective, 'value', 100, 200).onChange(function(){
+      transform();
+    });
+  } else {
+    GUITransformPerspective.remove(applyTransformPerspective);
+  }
 });
 
 // GUI Perspective
 var GUIPerspective = GUI.addFolder('perspective');
-//GUIPerspective.open();
 
-GUIPerspective.add(value.perspective, 'perspective', 100, 1000).step(1).onChange(function(){
+GUIPerspective.add(control.perspective, 'value', 100, 1000).step(1).onChange(function(){
   perspective();
 });
 
 // GUI Perspective Origin
 var GUIPerspectiveOrigin = GUI.addFolder('perspective-origin');
 
-GUIPerspectiveOrigin.add(value.perspective, 'x', 0, 100).step(1).onChange(function(){
+GUIPerspectiveOrigin.add(control.perspective, 'x', 0, 100).step(1).onChange(function(){
   perspectiveOrigin();
 });
-GUIPerspectiveOrigin.add(value.perspective, 'y', 0, 100).step(1).onChange(function(){
+GUIPerspectiveOrigin.add(control.perspective, 'y', 0, 100).step(1).onChange(function(){
   perspectiveOrigin();
 });
 
 var GUITransformStyle = GUI.addFolder('transform-style');
 
-GUITransformStyle.add(value, 'preserve3d').onChange(function(){
+GUITransformStyle.add(control, 'preserve3d').onChange(function(){
   preserve3d();
 });
 
@@ -236,4 +256,5 @@ window.onload = function() {
   perspective();
   perspectiveOrigin();
   preserve3d();
+  console.log(control);
 }
