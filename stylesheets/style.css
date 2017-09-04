@@ -14,20 +14,24 @@ body {
 }
 
 /* Coca-Cola */
-.coca-cola-container {
+.object-container {
   perspective: 400px;
   width: calc(100% - 300px);
   height: 100%;
   display: flex;
 }
 
-.coca-cola-container * {
+.object-container.preserve-3d * {
   transform-style: preserve-3d;
+}
+
+.object-container.backface-hide * {
+  backface-visibility: hidden;
 }
 
 .coca-cola {
   transform-origin: center center -51px;
-  width: 30px;
+  width: 15px;
   height: 210px;
   margin: auto;
 }
@@ -35,38 +39,48 @@ body {
 .tin {
   width: 100%;
   height: 100%;
-  transform: translateX(99.5%) rotateY(33deg);
+  transform: translateX(100%) rotateY(17.142deg);
   transform-origin: left;
   position: relative;
   left: 0;
   top: 0;
   background-color: #be0709;
-  background-image: url(http://i.imgur.com/OKuKdpj.jpg);
+  background-image: url('../images/coca-cola-label.jpg');
   background-repeat: no-repeat;
-  background-size: auto 100%;
+  background-size: 2100% 100%;
 }
 
 .tin--01 { background-position: 0% top; }
-.tin--02 { background-position: 10% top; }
-.tin--03 { background-position: 20% top; }
-.tin--04 { background-position: 30% top; }
-.tin--05 { background-position: 40% top; }
-.tin--06 { background-position: 50% top; }
-.tin--07 { background-position: 60% top; }
-.tin--08 { background-position: 70% top; }
-.tin--09 { background-position: 80% top; }
-.tin--10 { background-position: 90% top; }
-.tin--11 { background-position: 100% top; }
+.tin--02 { background-position: 5% top; }
+.tin--03 { background-position: 10% top; }
+.tin--04 { background-position: 15% top; }
+.tin--05 { background-position: 20% top; }
+.tin--06 { background-position: 25% top; }
+.tin--07 { background-position: 30% top; }
+.tin--08 { background-position: 35% top; }
+.tin--09 { background-position: 40% top; }
+.tin--10 { background-position: 45% top; }
+.tin--11 { background-position: 50% top; }
+.tin--12 { background-position: 55% top; }
+.tin--13 { background-position: 60% top; }
+.tin--14 { background-position: 65% top; }
+.tin--15 { background-position: 70% top; }
+.tin--16 { background-position: 75% top; }
+.tin--17 { background-position: 80% top; }
+.tin--18 { background-position: 85% top; }
+.tin--19 { background-position: 90% top; }
+.tin--20 { background-position: 95% top; }
+.tin--21 { background-position: 100% top; }
 
 .top {
   background-color: #86919a;
-  background-image: url(http://i.imgur.com/EmPIo5C.png);
+  background-image: url('../images/top-tin.png');
   background-repeat: no-repeat;
   background-size: auto 100%;
-  width: 106px;
-  height: 106px;
+  width: 102px;
+  height: 102px;
   position: absolute;
-  transform: rotateX(-90deg) translateX(-50%) translateY(-2%);
+  transform: rotateX(90deg) translateX(-50%) translateY(-96%) translateY(-2%);
   transform-origin: top;
   left: 50%;
   border-radius: 50%;
@@ -162,16 +176,22 @@ body {
 /* Print result */
 .print-result {
   position: absolute;
-  width: 130px;
   left: 10px;
   top: 10px;
-  color: white;
-  font: 12px arial;
-  letter-spacing: 0.9px;
-  line-height: 1.5;
+  font-size: 13px;
+  font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  letter-spacing: 0px;
+  color: #ffd3d5;
 }
-.print-result span {
+.print-result__selector {
+  color: #d19a66;
+}
+.print-result__value {
   margin-left: 10px;
   display: block;
-  margin-bottom: 20px;
+  width: 150px;
+  margin-bottom: 10px;
+}
+.print-result__value:last-child {
+  margin-bottom: 0;
 }
