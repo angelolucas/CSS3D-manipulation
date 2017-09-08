@@ -25,7 +25,7 @@ var control = {
     },
     perspective: {
       apply: false,
-      value: 1000
+      value: 4000
     }
   },
   transformOrigin: {
@@ -50,22 +50,57 @@ var property = {
 };
 
 var transform = function() {
-  property.transform =
-    'transform: ' +
-      'rotateX(' + control.transform.rotate.x + 'deg) ' +
-      'rotateY(' + control.transform.rotate.y + 'deg) ' +
-      'rotateZ(' + control.transform.rotate.z + 'deg) ' +
-      'translateX(' + control.transform.translate.x + 'px) ' +
-      'translateY(' + control.transform.translate.y + 'px) ' +
-      'translateZ(' + control.transform.translate.z + 'px) ' +
-      'scaleX(' + control.transform.scale.x.toFixed(3) + ') ' +
-      'scaleY(' + control.transform.scale.y.toFixed(3) + ') ' +
-      'scaleZ(' + control.transform.scale.z.toFixed(3) + ') ' +
+  property.transform = 'transform: ';
+  var initValue = property.transform;
+
+  if (control.transform.rotate.x != 0)
+    property.transform += 'rotateX(' + control.transform.rotate.x + 'deg) ';
+
+  if (control.transform.rotate.y != 0)
+    property.transform += 'rotateY(' + control.transform.rotate.y + 'deg) ';
+
+  if (control.transform.rotate.z != 0)
+    property.transform += 'rotateZ(' + control.transform.rotate.z + 'deg) ';
+
+  if (control.transform.translate.x != 0)
+    property.transform += 'translateX(' + control.transform.translate.x + 'px) ';
+
+  if (control.transform.translate.y != 0)
+    property.transform += 'translateY(' + control.transform.translate.y + 'px) ';
+
+  if (control.transform.translate.z != 0)
+    property.transform += 'translateZ(' + control.transform.translate.z + 'px) ';
+
+  if (control.transform.scale.x != 1)
+    property.transform += 'scaleX(' + control.transform.scale.x.toFixed(3) + ') ';
+
+  if (control.transform.scale.y != 1)
+    property.transform += 'scaleY(' + control.transform.scale.y.toFixed(3) + ') ';
+
+  if (control.transform.scale.z != 1)
+    property.transform += 'scaleZ(' + control.transform.scale.z.toFixed(3) + ') ';
+
+  if (control.transform.scale.xyz != 1) {
+    property.transform +=
       'scale3d(' +
-        control.transform.scale.xyz.toFixed(3) + ', ' +
-        control.transform.scale.xyz.toFixed(3) + ', ' +
-        control.transform.scale.xyz.toFixed(3) +
-      '); ';
+         control.transform.scale.xyz.toFixed(3) + ', ' +
+         control.transform.scale.xyz.toFixed(3) + ', ' +
+         control.transform.scale.xyz.toFixed(3) +
+       ') ';
+  }
+
+  if (control.transform.perspective.apply === true) {
+    console.log('entrou');
+    property.transform += 'perspective(' + control.transform.perspective.value + 'px) ';
+  }
+
+  /* Hide transform if it's empty,
+  * put a final comma if there's value */
+  if (property.transform === initValue) {
+    property.transform = '';
+  } else {
+    property.transform += '; ';
+  }
 
   applyObjectStyle();
 };
@@ -219,12 +254,13 @@ GUITransformPerspective.open();
 var applyTransformPerspective;
 GUITransformPerspective.add(control.transform.perspective, 'apply').onChange(function() {
   if (control.transform.perspective.apply === true) {
-    applyTransformPerspective = GUITransformPerspective.add(control.transform.perspective, 'value', 100, 200).onChange(function(){
+    applyTransformPerspective = GUITransformPerspective.add(control.transform.perspective, 'value', 100, 4000).step(1).onChange(function(){
       transform();
     });
   } else {
     GUITransformPerspective.remove(applyTransformPerspective);
   }
+  transform();
 });
 
 // GUI Perspective
@@ -256,5 +292,4 @@ window.onload = function() {
   perspective();
   perspectiveOrigin();
   preserve3d();
-  console.log(control);
 }
