@@ -89,10 +89,8 @@ var transform = function() {
        ') ';
   }
 
-  if (control.transform.perspective.apply === true) {
-    console.log('entrou');
+  if (control.transform.perspective.apply === true)
     property.transform += 'perspective(' + control.transform.perspective.value + 'px) ';
-  }
 
   /* Hide transform if it's empty,
   * put a final comma if there's value */
@@ -193,13 +191,13 @@ var GUI = new dat.GUI({width: 300});
 var GUITransformOrigin = GUI.addFolder('transform-origin');
 //GUITransformOrigin.open();
 
-GUITransformOrigin.add(control.transformOrigin, 'x', -600, 600).step(1).onChange(function(){
+GUITransformOrigin.add(control.transformOrigin, 'x', -1200, 1200).step(1).onChange(function(){
   transformOrigin();
 });
 GUITransformOrigin.add(control.transformOrigin, 'y', -100, 200).step(1).onChange(function(){
   transformOrigin();
 });
-GUITransformOrigin.add(control.transformOrigin, 'z', -100, 100).step(1).onChange(function(){
+GUITransformOrigin.add(control.transformOrigin, 'z', -200, 200).step(1).onChange(function(){
   transformOrigin();
 });
 
@@ -222,13 +220,13 @@ GUITransformRotate.add(control.transform.rotate, 'z', -180, 180).step(1).onChang
 // GUI Transform translate
 var GUITransformTranslate = GUITransform.addFolder('translate');
 
-GUITransformTranslate.add(control.transform.translate, 'x', -100, 100).step(1).onChange(function(){
+GUITransformTranslate.add(control.transform.translate, 'x', -300, 300).step(1).onChange(function(){
   transform();
 });
-GUITransformTranslate.add(control.transform.translate, 'y', -100, 100).step(1).onChange(function(){
+GUITransformTranslate.add(control.transform.translate, 'y', -300, 300).step(1).onChange(function(){
   transform();
 });
-GUITransformTranslate.add(control.transform.translate, 'z', -100, 100).step(1).onChange(function(){
+GUITransformTranslate.add(control.transform.translate, 'z', -300, 300).step(1).onChange(function(){
   transform();
 });
 
@@ -252,6 +250,7 @@ var GUITransformPerspective = GUITransform.addFolder('perspective');
 GUITransformPerspective.open();
 
 var applyTransformPerspective;
+
 GUITransformPerspective.add(control.transform.perspective, 'apply').onChange(function() {
   if (control.transform.perspective.apply === true) {
     applyTransformPerspective = GUITransformPerspective.add(control.transform.perspective, 'value', 100, 4000).step(1).onChange(function(){
