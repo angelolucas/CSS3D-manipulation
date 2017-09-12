@@ -207,13 +207,13 @@ GUITransform.open();
 // GUI Transform rotate
 var GUITransformRotate = GUITransform.addFolder('rotate');
 
-GUITransformRotate.add(control.transform.rotate, 'x', -180, 180).step(1).onChange(function(){
+GUITransformRotate.add(control.transform.rotate, 'x', 0, 360).step(1).listen().onChange(function(){
   transform();
 });
-GUITransformRotate.add(control.transform.rotate, 'y', -180, 180).step(1).onChange(function(){
+GUITransformRotate.add(control.transform.rotate, 'y', 0, 360).step(1).listen().onChange(function(){
   transform();
 });
-GUITransformRotate.add(control.transform.rotate, 'z', -180, 180).step(1).onChange(function(){
+GUITransformRotate.add(control.transform.rotate, 'z', 0, 360).step(1).onChange(function(){
   transform();
 });
 
