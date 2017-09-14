@@ -23,23 +23,22 @@ body {
   color: #ffd3d5;
 }
 
-/* Coca-Cola */
+/* Coca-Cola Container */
 .object-container {
   perspective: 400px;
   width: calc(100% - 300px);
   height: 100%;
   display: flex;
 }
-
 .object-container.preserve-3d * {
   transform-style: preserve-3d;
 }
-
 .object-container.backface-hide * {
   backface-visibility: hidden;
 }
 
-.coca-cola {
+/* Object */
+.object {
   transform-origin: center center -51px;
   width: 15px;
   height: 210px;
@@ -127,9 +126,8 @@ body {
   left: 0;
   top: 0;
   width: 0;
-  height: 50px;
-  border-left-width: 2px;
-  border-left-style: solid;
+  height: 400px;
+  width: 3px;
   pointer-events: none;
   transform-origin: top;
 }
@@ -138,19 +136,17 @@ body {
 .axis:after {
   content: "";
   position: absolute;
-  border-left-width: 2px;
-  border-left-style: solid;
   opacity: 0.3;
   height: 100%;
-  width: 0;
+  width: 100%;
   bottom: 100%;
   left: 0;
-  transform: translateX(-100%);
+  transform: rotate(180deg);
 }
 
 /* Perpendicular Axis */
 .axis--perpendicular {
-  transform: translateX(-100%) rotateY(90deg);
+  transform: rotateY(90deg);
 }
 
 /* X Axis */
@@ -161,7 +157,7 @@ body {
 .axis--x:after,
 .axis--x .axis--perpendicular,
 .axis--x .axis--perpendicular:after {
-  border-color: #960000; /* Red */
+  background: linear-gradient(#960000, transparent); /* Red */
 }
 
 /* Y Axis */
@@ -169,7 +165,7 @@ body {
 .axis--y:after,
 .axis--y .axis--perpendicular,
 .axis--y .axis--perpendicular:after {
-  border-color: #3fe63f; /* Green */
+  background: linear-gradient(#3fe63f, transparent); /* Green */
 }
 
 /* Z Axis */
@@ -180,7 +176,7 @@ body {
 .axis--z:after,
 .axis--z .axis--perpendicular,
 .axis--z .axis--perpendicular:after {
-  border-color: blue;
+  background: linear-gradient(blue, transparent); /* Blue */
 }
 
 /* Print result */
