@@ -4,13 +4,11 @@ var rotation = {
 };
 
 $(document).ready(function() {
-  var $demo = $('.object');
-
   var prevValues = {
     x: 0,
     y: 0
   };
-  var rotationActive = false;
+  var rotating = false;
 
   $('.object-container').on('mousedown ', function(e) {
     var startX = e.pageX;
@@ -20,10 +18,10 @@ $(document).ready(function() {
       var deltaX;
       var deltaY;
 
-      if (!rotationActive) {
+      if (!rotating) {
         deltaX = startX - e.pageX;
         deltaY = startY - e.pageY;
-        rotationActive = true;
+        rotating = true;
       } else {
         deltaX = prevValues.x - e.pageX;
         deltaY = prevValues.y - e.pageY;
@@ -32,7 +30,7 @@ $(document).ready(function() {
       prevValues.y = e.pageY;
 
       rotation.x += deltaY * 100 / 360;
-      rotation.y += deltaX * 100 / 360;
+      rotation.y -= deltaX * 100 / 360;
 
       // Keep degrees from 0˚ to 360˚
       if (rotation.x > 360) {
@@ -55,9 +53,10 @@ $(document).ready(function() {
     });
 
     $('.object-container').on('mouseup', function(e) {
+      console.log('mouseup', rotating);
       $('.object-container').off('mousemove');
       $('.object-container').off('mouseup');
-      rotationActive = false;
+      rotating = false;
       prevValues.x = 0;
       prevValues.y = 0;
     });
